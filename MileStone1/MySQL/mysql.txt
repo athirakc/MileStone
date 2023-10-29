@@ -1,0 +1,144 @@
+Q1. Create a table with suitable constraints and fill the table with following dataset.
+Answer:
+
+mysql> create table Teacher(Tid int,Tname varchar(25),department varchar(25),DOA date,salary int,gender char(2));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into Teacher values(1,'Alen','Computer','2000-10-04',10000,'M');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Teacher values(2,'Stella','History','1998-03-20',12000,'F');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Teacher values(3,'Stephen','Biology','2001-10-26',9000,'M');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Teacher values(4,'Mohan','Computer','1997-10-26',15000,'M');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Teacher values(5,'Rose','History','2004-10-26',8000,'F');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from Teacher;
++------+---------+------------+------------+--------+--------+
+| Tid  | Tname   | department | DOA        | salary | gender |
++------+---------+------------+------------+--------+--------+
+|    1 | Alen    | Computer   | 2000-10-04 |  10000 | M      |
+|    2 | Stella  | History    | 1998-03-20 |  12000 | F      |
+|    3 | Stephen | Biology    | 2001-10-26 |   9000 | M      |
+|    4 | Mohan   | Computer   | 1997-10-26 |  15000 | M      |
+|    5 | Rose    | History    | 2004-10-26 |   8000 | F      |
++------+---------+------------+------------+--------+--------+
+5 rows in set (0.00 sec)
+
+
+Q2. Write an SQL Query to select all the information of teachers in computer department.
+Answer:
+
+mysql> select *from Teacher where department='Computer';
++------+-------+------------+------------+--------+--------+
+| Tid  | Tname | department | DOA        | salary | gender |
++------+-------+------------+------------+--------+--------+
+|    1 | Alen  | Computer   | 2000-10-04 |  10000 | M      |
+|    4 | Mohan | Computer   | 1997-10-26 |  15000 | M      |
++------+-------+------------+------------+--------+--------+
+2 rows in set (0.00 sec)
+
+
+Q3. Write a query to list the name of female teachers in History department.
+Answer:
+
+mysql> select Tname from Teacher where gender='F' and department='History';
++--------+
+| Tname  |
++--------+
+| Stella |
+| Rose   |
++--------+
+2 rows in set (0.00 sec)
+
+
+Q4. list all names of teachers with date of admission in ascending order
+Answer:
+
+mysql> select Tname from Teacher order by DOA  asc;
++---------+
+| Tname   |
++---------+
+| Mohan   |
+| Stella  |
+| Alen    |
+| Stephen |
+| Rose    |
++---------+
+5 rows in set (0.00 sec)
+
+Q5. display Teacher's name, Department, and Salary of male teacher.
+Answer:
+
+mysql> select Tname,department,salary from Teacher where gender='M';
++---------+------------+--------+
+| Tname   | department | salary |
++---------+------------+--------+
+| Alen    | Computer   |  10000 |
+| Stephen | Biology    |   9000 |
+| Mohan   | Computer   |  15000 |
++---------+------------+--------+
+3 rows in set (0.00 sec)
+
+
+Q6. To count the number of items whose salary is less than 10,000
+Answer:
+
+mysql> select count(*) from Teacher where salary<10000;
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+
+Q7. To insert a new record in the Teacher table with the following data: 8, "Mersha", "computer",{1/1/2000),12000,"m"
+Answer:
+
+mysql> insert into Teacher values(8,'Mersha','Computer','2000-01-01',12000,'M');
+Query OK, 1 row affected (0.01 sec)
+
+
+Q8. List the teacher detail who is getting the minimum salary.
+Answer:
+
+mysql> select * from Teacher where salary=(select min(salary) from Teacher);
++------+-------+------------+------------+--------+--------+
+| Tid  | Tname | department | DOA        | salary | gender |
++------+-------+------------+------------+--------+--------+
+|    5 | Rose  | History    | 2004-10-26 |   8000 | F      |
++------+-------+------------+------------+--------+--------+
+1 row in set (0.00 sec)
+
+
+Q9. List the teacher detail who is getting the second minimum salary.
+Answer:
+
+
+mysql> select * from teacher order by salary limit 1 offset 1;
++------+---------+------------+------------+--------+--------+
+| Tid  | Tname   | department | DOA        | salary | gender |
++------+---------+------------+------------+--------+--------+
+|    3 | Stephen | Biology    | 2001-10-26 |   9000 | M      |
++------+---------+------------+------------+--------+--------+
+1 row in set (0.00 sec)
+
+
+
+Q10. List down the average salary of the teachers belongs to History department
+Answer:
+
+mysql> select avg(salary) from Teacher where department='History';
++-------------+
+| avg(salary) |
++-------------+
+|  10000.0000 |
++-------------+
+1 row in set (0.00 sec)
